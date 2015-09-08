@@ -3,7 +3,6 @@
 #include <gmcl14/containers/dyn2d.hpp>
 
 #define CATCH_CONFIG_MAIN
-#include "catch.hpp"
 #include "utils.hpp"
 
 struct Mtype
@@ -18,7 +17,7 @@ struct Mtype
 
 TEST_CASE("Dynamic container", "[dynamic, container]")
 {
-    for ( auto _ : 10000_ )
+    for ( auto _ : 1000_ )
     {
         const auto r = test::rrand<double>();
 

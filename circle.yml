@@ -1,0 +1,4 @@
+test:
+  override:
+    - ./cmk.sh -d -t
+    - ./cmk.sh -c -d -t

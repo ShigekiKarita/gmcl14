@@ -10,5 +10,5 @@ dependencies:
 
 test:
   override:
-    - sudo ln -sf /usr/bin/c++ /usr/bin/g++-5  && ./cmk.sh -d -t
-    - sudo ln -sf /usr/bin/c++ /usr/bin/clang++-3.6  && ./cmk.sh -c -d -t
+    - sudo ln -sf /usr/bin/g++-5 /usr/bin/c++ && ./cmk.sh -d -t
+    - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/c++ && ./cmk.sh -c -d -t

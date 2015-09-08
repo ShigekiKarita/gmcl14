@@ -15,10 +15,12 @@ dependencies:
 
 test:
   override:
+    - CXX=/usr/bin/g++-5
     - sudo ln -sf /usr/bin/g++-5 /usr/bin/c++
     - sudo ln -sf /usr/bin/g++-5 /usr/bin/g++
-    - mkdir gcc && cd build && cmake .. && make && cd ..
+    - mkdir gcc && cd gcc && cmake .. && make && cd ..
 
+    - CXX=/usr/bin/clang++-3.6
     - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/c++
     - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/g++
     - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/clang++

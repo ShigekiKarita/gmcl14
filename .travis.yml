@@ -1,0 +1,5 @@
+language: cpp
+
+compiler: gcc
+
+script: ./cmk.sh -d -t

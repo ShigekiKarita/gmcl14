@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <memory>
+#include <vector>
 
 namespace MatrixICCL
 {
@@ -12,11 +13,11 @@ namespace MatrixICCL
         using config = typename Generator::config;
         using element_type = typename config::element_type;
         using index_type = typename config::index_type;
-
+        using storage_type = std::vector<element_type>;
     protected:
         index_type _rows, _cols;
-        std::unique_ptr<element_type[]> _elements_ptr;
-        std::unique_ptr< std::unique_ptr<element_type[]>[] > _rows_ptr;
+        element_type* _elements_ptr;
+        element_type** _rows_ptr;
 
         void check_bounds(const index_type& i, const index_type& j) const
         {
@@ -25,47 +26,49 @@ namespace MatrixICCL
         }
 
     public:
-        explicit Dyn2DCContainer(const index_type& r, const index_type&c) : _rows(r), _cols(c)
+        Dyn2DCContainer(const index_type& r, const index_type&c)
+            : _rows(r), _cols(c)
         {
+            std::cout << "create" << std::endl;
             assert(rows() > 0);
             assert(cols() > 0);
 
-            _elements_ptr.reset(new element_type[rows() * cols()]);
+            _elements_ptr = new element_type[rows() * cols()];
             assert(_elements_ptr);
-            _rows_ptr.reset(new std::unique_ptr<element_type[]>[rows()]);
+            _rows_ptr = new element_type*[rows()];
             assert(_rows_ptr);
 
-            auto p = _elements_ptr.get();
+            auto p = _elements_ptr;
             for (index_type i = 0; i < rows(); ++i, p += cols())
             {
-                _rows_ptr.get()[i].reset(p);
+                _rows_ptr[i] = p;
             }
+        }
+
+        virtual ~Dyn2DCContainer() {
+            std::cout << "destory" << std::endl;
+            delete[] _elements_ptr;
+            delete[] _rows_ptr;
         }
 
         auto& set_element(const index_type& i, const index_type& j, const element_type& v)
         {
             check_bounds(i, j);
-            _rows_ptr.get()[i][j] = v;
+            _rows_ptr[i][j] = v;
             return *this;
         }
 
         const auto& get_element(const index_type& i, const index_type& j) const
         {
             check_bounds(i, j);
-            return _rows_ptr.get()[i][j];
+            return _rows_ptr[i][j];
         }
 
-        const auto& rows() const
-        {
-            return _rows;
-        }
+        const auto& rows() const { return _rows; }
 
-        const auto& cols() const
-        {
-            return _cols;
-        }
+        const auto& cols() const { return _cols; }
 
-        void init_elements(const element_type& v=0)
+        auto& init_elements(const element_type& v=0)
         {
             for (auto i = rows(); --i;)
             {
@@ -74,6 +77,7 @@ namespace MatrixICCL
                     set_element(i, j, v);
                 }
             }
+            return *this;
         }
     };
 

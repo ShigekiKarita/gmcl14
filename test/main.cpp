@@ -34,3 +34,8 @@ TEST_CASE("Dynamic container", "[dynamic, container]")
         REQUIRE(m2f.get_element(2, 1) == r);
     }
 }
+
+TEST_CASE("failure", "[]")
+{
+    FAIL();
+}

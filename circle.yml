@@ -2,12 +2,13 @@ dependencies:
   override:
     - wget http://www.cmake.org/files/v3.3/cmake-3.3.1-Linux-i386.tar.gz
     - tar -xzf cmake-3.3.1-Linux-i386.tar.gz
-    - sudo cp -fR cmake-3.3.1-Linux-i386/* /usr
+    - sudo cp -fR cmake-3.3.1-Linux-i386/bin/* /usr/bin
     - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
     - sudo apt-get -qq update
     - sudo apt-get -qq install g++-5
+    - sudo apt-get -qq install clang++-3.6
 
 test:
   override:
-    - ./cmk.sh -d -t
-    - ./cmk.sh -c -d -t
+    - sudo ln -sf /usr/bin/c++ /usr/bin/g++-5  && ./cmk.sh -d -t
+    - sudo ln -sf /usr/bin/c++ /usr/bin/clang++-3.6  && ./cmk.sh -c -d -t

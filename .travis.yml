@@ -1,8 +1,15 @@
 language: cpp
 
 compiler:
-  - gcc
+  - g++-5
   - clang
+
+install:
+  - wget http://www.cmake.org/files/v3.3/cmake-3.3.1-Linux-i386.tar.gz
+  - tar -xzf cmake-3.3.1-Linux-i386.tar.gz
+  - sudo cp -fR cmake-3.3.1-Linux-i386/* /usr
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install g++-5
 
 script:
   - ./cmk.sh --debug --test

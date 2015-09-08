@@ -1,3 +1,8 @@
+general:
+  artifacts:
+    - log
+
+
 dependencies:
   override:
     - wget http://www.cmake.org/files/v3.3/cmake-3.3.1-Linux-i386.tar.gz
@@ -10,9 +15,14 @@ dependencies:
 
 test:
   override:
+    - mkdir log
+
     - sudo ln -sf /usr/bin/g++-5 /usr/bin/c++
     - sudo ln -sf /usr/bin/g++-5 /usr/bin/g++
-    - ./cmk.sh -d -t
+    - mkdir build && cd build && cmake .. && make && cd ..
+    - ./main -r junit > ./log/gcc.xml && rm -r build
+
     - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/c++
     - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/g++
-    - ./cmk.sh -c -d -t
+    - mkdir build && cd build && cmake .. && make && cd ..
+    - ./main -r junit > ./log/clang.xml && rm -r build

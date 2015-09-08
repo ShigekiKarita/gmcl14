@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(GMCL14)
 
-add_compile_options(-std=c++14 -Wall -Wextra -g)
+add_compile_options(-std=c++1y -Wall -Wextra -g)
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
 enable_testing()
@@ -19,6 +19,3 @@ foreach(path IN LISTS test_sources)
     add_test(NAME ${target} COMMAND $<TARGET_FILE:${target}>)
     file(RELATIVE_PATH rpath ${CMAKE_SOURCE_DIR} ${path})
 endforeach()
-
-#set(SOURCE_FILES test/main.cpp)
-#add_executable(GMCL14 ${SOURCE_FILES})

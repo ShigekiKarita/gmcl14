@@ -29,7 +29,6 @@ namespace MatrixICCL
         Dyn2DCContainer(const index_type& r, const index_type&c)
             : _rows(r), _cols(c)
         {
-            std::cout << "create" << std::endl;
             assert(rows() > 0);
             assert(cols() > 0);
 
@@ -46,7 +45,6 @@ namespace MatrixICCL
         }
 
         virtual ~Dyn2DCContainer() {
-            std::cout << "destory" << std::endl;
             delete[] _elements_ptr;
             delete[] _rows_ptr;
         }

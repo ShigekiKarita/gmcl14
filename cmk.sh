@@ -79,7 +79,7 @@ while [ $# -gt 0 ]; do
             shift
         ;;
         test|--test|-t)
-            test_option="-R ${2}"
+            test_option="${2}"
             shift
         ;;
         run|--run|-r)
@@ -121,11 +121,11 @@ cd ${build_dir} &&
 cmake ${cmake_flags} ${root_dir} &&
 make -j ${jobs} &&
 if [ -n "${test_option}" ]; then
-    cecho "🖖 ${test_option}\n" $green $bold
+    cecho "-> ${test_option}\n" $green $bold
     ctest -j ${jobs} ${test_option}
 fi
 
 if [ -n "${run_option}" ]; then
-    cecho "👊 ${run_option}\n" $magenda $bold
+    cecho "=> ${run_option}\n" $magenda $bold
     "./${build_dir}/${run_option}"
 fi

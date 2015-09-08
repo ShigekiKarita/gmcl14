@@ -15,16 +15,16 @@ dependencies:
 
 test:
   override:
-    - mkdir log
-
     - sudo ln -sf /usr/bin/g++-5 /usr/bin/c++
     - sudo ln -sf /usr/bin/g++-5 /usr/bin/g++
-    - mkdir build && cd build && cmake .. && make && cd ..
-    - ./build/main -r junit > ./log/gcc.xml
-
-    - rm -r build
+    - mkdir gcc && cd build && cmake .. && make && cd ..
 
     - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/c++
     - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/g++
-    - mkdir build && cd build && cmake .. && make && cd ..
-    - ./build/main -r junit > ./log/clang.xml
+    - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/clang++
+    - mkdir clang && cd clang && cmake .. && make && cd ..
+
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit
+    - ./gcc/main -r junit > $CIRCLE_TEST_REPORTS/junit/gcc.xml
+    - ./clang/main -r junit > $CIRCLE_TEST_REPORTS/junit/clang.xml

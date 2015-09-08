@@ -79,12 +79,12 @@ while [ $# -gt 0 ]; do
             shift
         ;;
         test|--test|-t)
-            test_option="${2}"
+            test_option="-R ${2}"
             shift
         ;;
         run|--run|-r)
             while [ $# -gt 0 ]; do
-                run_option=$run_option"${2}"
+                run_option=$run_option"-R ${2}"
                 shift
             done
         ;;

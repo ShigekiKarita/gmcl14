@@ -1,5 +1,9 @@
 language: cpp
 
-compiler: gcc
+compiler:
+  - gcc
+  - clang
 
-script: ./cmk.sh -d -t
+script:
+  - ./cmk.sh         --debug --test
+  - ./cmk.sh --clang --debug --test

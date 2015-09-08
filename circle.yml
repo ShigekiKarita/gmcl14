@@ -19,12 +19,12 @@ test:
     - sudo ln -sf /usr/bin/g++-5 /usr/bin/g++
     - mkdir gcc && cd gcc && cmake .. && make && cd ..
 
-    - CXX=/usr/bin/clang++
-    - sudo ln -sf /usr/bin/clang++ /usr/bin/c++
-    - sudo ln -sf /usr/bin/clang++ /usr/bin/g++
-    - mkdir clang && cd clang && cmake .. && make && cd ..
+    # - CXX=/usr/bin/clang++
+    # - sudo ln -sf /usr/bin/clang++ /usr/bin/c++
+    # - sudo ln -sf /usr/bin/clang++ /usr/bin/g++
+    # - mkdir clang && cd clang && cmake .. && make && cd ..
 
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
     - ./gcc/main -r junit 2>&1   | tee $CIRCLE_TEST_REPORTS/junit/gcc.xml
-    - ./clang/main -r junit 2>&1 | tee $CIRCLE_TEST_REPORTS/junit/clang.xml
+    # - ./clang/main -r junit 2>&1 | tee $CIRCLE_TEST_REPORTS/junit/clang.xml

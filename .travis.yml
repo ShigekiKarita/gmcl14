@@ -5,5 +5,4 @@ compiler:
   - clang
 
 script:
-  - ./cmk.sh         --debug --test
-  - ./cmk.sh --clang --debug --test
+  - ./cmk.sh --debug --test

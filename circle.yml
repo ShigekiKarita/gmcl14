@@ -20,9 +20,11 @@ test:
     - sudo ln -sf /usr/bin/g++-5 /usr/bin/c++
     - sudo ln -sf /usr/bin/g++-5 /usr/bin/g++
     - mkdir build && cd build && cmake .. && make && cd ..
-    - ./main -r junit > ./log/gcc.xml && rm -r build
+    - ./build/main -r junit > ./log/gcc.xml
+
+    - rm -r build
 
     - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/c++
     - sudo ln -sf /usr/bin/clang++-3.6 /usr/bin/g++
     - mkdir build && cd build && cmake .. && make && cd ..
-    - ./main -r junit > ./log/clang.xml && rm -r build
+    - ./build/main -r junit > ./log/clang.xml

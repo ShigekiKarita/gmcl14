@@ -2,29 +2,31 @@ general:
   artifacts:
     - $CIRCLE_TEST_REPORTS/junit
 
-
 dependencies:
+  pre:
+    - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+    - sudo apt-get -qq update
   override:
+    - sudo apt-get -qq install g++-5 clang-3.6
     - wget http://www.cmake.org/files/v3.3/cmake-3.3.1-Linux-i386.tar.gz
     - tar -xzf cmake-3.3.1-Linux-i386.tar.gz
     - sudo cp -fR cmake-3.3.1-Linux-i386/* /usr
-    - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-    - sudo apt-get -qq update
-    - sudo apt-get -qq install g++-5
+  post:
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 99
+    - sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.6 99
+    - g++ --version
+    - clang++ --version
+    - cmake --version
 
 test:
   override:
     - CXX=/usr/bin/g++-5
-    - sudo ln -sf /usr/bin/g++-5 /usr/bin/c++
-    - sudo ln -sf /usr/bin/g++-5 /usr/bin/g++
     - mkdir gcc && cd gcc && cmake .. && make && cd ..
 
-    # - CXX=/usr/bin/clang++
-    # - sudo ln -sf /usr/bin/clang++ /usr/bin/c++
-    # - sudo ln -sf /usr/bin/clang++ /usr/bin/g++
-    # - mkdir clang && cd clang && cmake .. && make && cd ..
+    - CXX=/usr/bin/clang++
+    - mkdir clang && cd clang && cmake .. && make && cd ..
 
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
     - ./gcc/main -r junit 2>&1   | tee $CIRCLE_TEST_REPORTS/junit/gcc.xml
-    # - ./clang/main -r junit 2>&1 | tee $CIRCLE_TEST_REPORTS/junit/clang.xml
+    - ./clang/main -r junit 2>&1 | tee $CIRCLE_TEST_REPORTS/junit/clang.xml

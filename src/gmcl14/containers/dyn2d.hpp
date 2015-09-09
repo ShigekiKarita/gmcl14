@@ -13,7 +13,7 @@ namespace MatrixICCL
         using config = typename Generator::config;
         using element_type = typename config::element_type;
         using index_type = typename config::index_type;
-        using storage_type = std::vector<element_type>;
+
     protected:
         index_type _rows, _cols;
         element_type* _elements_ptr;
@@ -26,7 +26,7 @@ namespace MatrixICCL
         }
 
     public:
-        Dyn2DCContainer(const index_type& r, const index_type&c)
+        Dyn2DCContainer(const index_type& r, const index_type& c)
             : _rows(r), _cols(c)
         {
             assert(rows() > 0);
@@ -44,7 +44,8 @@ namespace MatrixICCL
             }
         }
 
-        virtual ~Dyn2DCContainer() {
+        virtual ~Dyn2DCContainer()
+        {
             delete[] _elements_ptr;
             delete[] _rows_ptr;
         }
@@ -102,6 +103,7 @@ namespace MatrixICCL
         }
 
         const auto& rows() const { return base_type::cols(); }
+
         const auto& cols() const { return base_type::rows(); }
     };
 } // namespace MatrixICCL

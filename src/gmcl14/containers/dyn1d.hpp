@@ -17,7 +17,7 @@ namespace MatrixICCL
         index_type _size;
         std::unique_ptr<element_type[]> _data_ptr;
 
-        void check_bounds(const index_type& i) const
+        void check_bounds(const index_type& i __attribute__((unused))) const
         {
             assert(i >= 0 && i < size());
         }

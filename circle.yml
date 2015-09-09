@@ -5,25 +5,28 @@ general:
 dependencies:
   pre:
     - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+    - sudo add-apt-repository -y 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.8 main'
+    - wget -q -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
     - sudo apt-get -qq update
   override:
-    - sudo apt-get -qq install g++-5 clang-3.6
+    - sudo apt-get -qq install g++-5 clang-3.8
     - wget http://www.cmake.org/files/v3.3/cmake-3.3.1-Linux-i386.tar.gz
     - tar -xzf cmake-3.3.1-Linux-i386.tar.gz
     - sudo cp -fR cmake-3.3.1-Linux-i386/* /usr
   post:
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 99
-    - sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.6 99
+    - sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 99
     - g++ --version
     - clang++ --version
     - cmake --version
 
 test:
   override:
-    - CXX=/usr/bin/g++-5
+    - CC=gcc
+    - CXX=g++
     - mkdir gcc && cd gcc && cmake .. && make && cd ..
-
-    - CXX=/usr/bin/clang++
+    - CC=clang
+    - CXX=clang++
     - mkdir clang && cd clang && cmake .. && make && cd ..
 
   post:

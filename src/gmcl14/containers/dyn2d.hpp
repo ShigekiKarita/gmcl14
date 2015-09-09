@@ -19,7 +19,8 @@ namespace MatrixICCL
         element_type* _elements_ptr;
         element_type** _rows_ptr;
 
-        void check_bounds(const index_type& i, const index_type& j) const
+        void check_bounds(const index_type& i __attribute__((unused)),
+                          const index_type& j __attribute__((unused))) const
         {
             assert(i >= 0 && i < rows());
             assert(j >= 0 && j < cols());

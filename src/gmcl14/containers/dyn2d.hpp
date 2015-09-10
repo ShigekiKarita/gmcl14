@@ -2,7 +2,6 @@
 
 #include <cassert>
 #include <memory>
-#include <vector>
 
 namespace MatrixICCL
 {

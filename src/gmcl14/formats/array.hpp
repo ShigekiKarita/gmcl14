@@ -1,52 +1,10 @@
 #pragma once
 
+#include "nonzero.hpp"
 #include <cassert>
-#include <type_traits>
 
 namespace MatrixICCL
 {
-    template < class M >
-    using itype = const typename M::config::index_type&;
-
-    struct RectNonZeroRegion
-    {
-        template < class M >
-        static bool non_zero_region(const M*, itype<M> i, itype<M> j) { return true; }
-    };
-
-    struct LowerTriangleNonZeroRegion
-    {
-        template < class M >
-        static bool non_zero_region(const M*, itype<M> i, itype<M> j) { return i >= j; }
-    };
-
-    struct UpperTriangleNonZeroRegion
-    {
-        template < class M >
-        static bool non_zero_region(const M*, itype<M> i, itype<M> j) { return i <= j; }
-    };
-
-    template < class MatrixType >
-    struct FormatNonZeroRegion
-    {
-        using shape = typename MatrixType::config::DSLFeatures::shape;
-        using type =
-        std::conditional_t<
-                shape::id == shape::lower_triangle_id ||
-                shape::id == shape::symmetry_id,
-                LowerTriangleNonZeroRegion,
-                std::conditional_t<
-                        shape::id == shape::upper_triangle_id,
-                        UpperTriangleNonZeroRegion,
-                        RectNonZeroRegion
-                >
-        >;
-    };
-
-    template < class MatrixType >
-    using FormatNonZeroRegion_t = typename FormatNonZeroRegion<MatrixType>::type;
-
-
     template < class Array >
     class ArrayFormat
     {
@@ -58,7 +16,7 @@ namespace MatrixICCL
         using index_type   = typename config::index_type;
         using element_type = typename config::element_type;
         using matrix_type  = typename config::matrix_type;
-        const static auto zero = element_type(0);
+        constexpr static auto zero = element_type(0);
 
         ArrayFormat(const index_type& r, const index_type& c) : _elements(r, c) {}
         const auto& rows() const { return _elements.rows(); }

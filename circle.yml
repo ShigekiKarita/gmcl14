@@ -14,7 +14,9 @@ dependencies:
     - tar -xzf cmake-3.3.1-Linux-i386.tar.gz
     - sudo cp -fR cmake-3.3.1-Linux-i386/* /usr
   post:
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 99
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 99
+    - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.6 99
     - sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.6 99
     - g++ --version
     - clang++ --version
@@ -22,11 +24,11 @@ dependencies:
 
 test:
   override:
-    - CC=gcc
-    - CXX=g++
+    - export CC=gcc
+    - export CXX=g++
     - mkdir gcc && cd gcc && cmake .. && make && cd ..
-    - CC=clang
-    - CXX=clang++
+    - export CC=clang
+    - export CXX=clang++
     - mkdir clang && cd clang && cmake .. && make && cd ..
 
   post:

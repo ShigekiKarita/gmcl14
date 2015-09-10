@@ -1,9 +1,8 @@
-#include <iostream>
-#include <gmcl14/containers/dyn1d.hpp>
-#include <gmcl14/containers/dyn2d.hpp>
-
 #define CATCH_CONFIG_MAIN
 #include "utils.hpp"
+
+#include <gmcl14/containers/dyn1d.hpp>
+#include <gmcl14/containers/dyn2d.hpp>
 
 struct Mtype
 {
@@ -15,9 +14,9 @@ struct Mtype
 };
 
 
-TEST_CASE("Dynamic container", "[dynamic, container]")
+TEST_CASE("Dynamic container", "[dynamic, containers]")
 {
-    for ( auto _ : 1000_ )
+    for (auto _ : 1000_)
     {
         const auto r = test::rrand<double>();
 
@@ -32,5 +31,20 @@ TEST_CASE("Dynamic container", "[dynamic, container]")
         MatrixICCL::Dyn2DFContainer<Mtype> m2f(3, 2);
         m2f.set_element(2, 1, r);
         REQUIRE(m2f.get_element(2, 1) == r);
+    }
+}
+
+
+#include <gmcl14/formats/nonzero.hpp>
+#include <gmcl14/formats/array.hpp>
+#include <gmcl14/formats/vector.hpp>
+
+TEST_CASE("Formats", "[formats]")
+{
+    for (auto _ : 1000_)
+    {
+//        MatrixICCL::ArrayFormat<Mtype> a(3, 4);
+//        MatrixICCL::LoTriangleVectorFormat<Mtype> l(3);
+//        MatrixICCL::UpTriangleVectorFormat<Mtype> u(3);
     }
 }

@@ -21,7 +21,7 @@ namespace MatrixICCL
                 : Format::set_element(j, i, v);
         }
 
-        const auto& get_element(const index_type& i, const index_type& j)
+        const auto& get_element(const index_type& i, const index_type& j) const
         {
             return i >= j
                 ? Format::get_element(i, j)

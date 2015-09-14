@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include <initializer_list>
 
 namespace MatrixICCL
 {
@@ -38,6 +39,20 @@ namespace MatrixICCL
             : _matrix(m), _i(0), _j(0)
         {
             insert(first_val);
+        }
+
+        auto& operator,(const element_type& v)
+        {
+            insert(v);
+            return *this;
+        }
+
+        auto& operator=(std::initializer_list<element_type> init_list)
+        {
+            for (auto&& i : init_list)
+            {
+                insert(i);
+            }
         }
     };
 }

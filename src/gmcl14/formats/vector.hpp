@@ -49,6 +49,7 @@ namespace MatrixICCL
             check_bounds(i, j);
             if (i >= j) _elements.set_element(get_index(i, j), v);
             else assert(v == zero);
+            return *this;
         }
 
         const auto& get_element(const index_type& i, const index_type& j) const

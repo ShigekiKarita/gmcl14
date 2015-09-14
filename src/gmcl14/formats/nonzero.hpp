@@ -31,14 +31,14 @@ namespace MatrixICCL
         using shape = typename MatrixType::config::DSLFeatures::shape;
         using type =
         std::conditional_t<
-        shape::id == shape::lower_triangle_id ||
-        shape::id == shape::symmetry_id,
-        LowerTriangleNonZeroRegion,
-        std::conditional_t<
+            shape::id == shape::lower_triangle_id ||
+            shape::id == shape::symmetry_id,
+            LowerTriangleNonZeroRegion,
+            std::conditional_t<
                 shape::id == shape::upper_triangle_id,
                 UpperTriangleNonZeroRegion,
                 RectNonZeroRegion
-        >
+            >
         >;
     };
 

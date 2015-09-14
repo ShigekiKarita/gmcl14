@@ -14,7 +14,7 @@ namespace MatrixICCL
 
     protected:
         void check_bounds(const index_type& i __attribute__((unused)),
-                          const index_type& j __attribute__((unused))) const throw(std::string)
+                          const index_type& j __attribute__((unused))) const
         {
             if (i < 0 || i >= rows() || j < 0 || j >= cols())
             {

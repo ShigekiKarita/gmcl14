@@ -9,7 +9,7 @@ namespace MatrixDSL
     // element_type : built-in types
 
     // shape
-    template < class > struct rect;
+    template < class > struct rectangle;
     template < class > struct lower_triangle;
     template < class > struct upper_triangle;
     template < class > struct symmetry;

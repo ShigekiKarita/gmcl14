@@ -5613,7 +5613,7 @@ namespace Catch {
             Catch::cout() << "\nCatch v" << libraryVersion << "\n";
 
             m_cli.usage( Catch::cout(), processName );
-            Catch::cout() << "For more detail usage please see the project docs\n" << std::endl;
+            Catch::cout() << "For more dsl usage please see the project docs\n" << std::endl;
         }
 
         int applyCommandLine( int argc, char* const argv[], OnUnusedOptions::DoWhat unusedOptionBehaviour = OnUnusedOptions::Fail ) {

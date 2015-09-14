@@ -1,5 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "utils.hpp"
+#include "test_dsl.hpp"
 
 #include <gmcl14/containers/dyn1d.hpp>
 #include <gmcl14/containers/dyn2d.hpp>
